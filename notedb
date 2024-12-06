@@ -1,0 +1,48 @@
+-- Supprimer les tables existantes
+DROP TABLE IF EXISTS emprunts;
+DROP TABLE IF EXISTS livres;
+DROP TABLE IF EXISTS auteurs;
+DROP TABLE IF EXISTS utilisateurs;
+
+-- Recréer la table des auteurs
+CREATE TABLE auteurs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    prenom VARCHAR(255) NOT NULL,
+    biographie TEXT NULL,
+    photo VARCHAR(255) NULL
+);
+
+-- Recréer la table des livres
+CREATE TABLE livres (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titre VARCHAR(255) NOT NULL,
+    genre VARCHAR(100) NOT NULL,
+    auteur_id INT NOT NULL,
+    disponibilite BOOLEAN NOT NULL DEFAULT 1, -- 1 = disponible, 0 = emprunté
+    date_retour DATE NULL,
+    FOREIGN KEY (auteur_id) REFERENCES auteurs(id)
+);
+
+-- Recréer la table des utilisateurs
+CREATE TABLE utilisateurs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    prenom VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    mot_de_passe VARCHAR(255) NOT NULL,
+    role ENUM('emprunteur', 'administrateur') DEFAULT 'emprunteur' NOT NULL
+);
+
+-- Recréer la table des emprunts
+CREATE TABLE emprunts (
+    id_emprunt INT AUTO_INCREMENT PRIMARY KEY,
+    id_livre INT NOT NULL,
+    id_utilisateur INT NOT NULL,
+    date_emprunt DATE NOT NULL DEFAULT CURRENT_DATE,
+    date_retour DATE NULL,
+    date_retour_prevu DATE NOT NULL,
+    date_retour_reel DATE NULL,
+    FOREIGN KEY (id_livre) REFERENCES livres(id),
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id)
+);
