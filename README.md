@@ -79,6 +79,3 @@ Ce projet consiste à développer une application permettant de gérer une bibli
 3. Mettez à jour les informations de connexion à la base de données dans le fichier de configuration PHP.
 4. Accédez à l'application via un serveur local pour commencer à gérer la bibliothèque.
 
-## Contribuer
-
-Les contributions sont les bienvenues ! Si vous avez des idées d'améliorations ou des corrections de bugs, n'hésitez pas à ouvrir une issue ou à soumettre une pull request.
